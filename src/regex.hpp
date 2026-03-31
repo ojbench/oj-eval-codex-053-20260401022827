@@ -259,6 +259,8 @@ public:
       states = nfa.Advance(states, ch);
       if (states.empty()) return false; // early cut if dead
     }
+    // Final epsilon-closure before acceptance check
+    states = nfa.GetEpsilonClosure(states);
     for (int s : states) if (nfa.IsAccepted(s)) return true;
     return false;
   }
